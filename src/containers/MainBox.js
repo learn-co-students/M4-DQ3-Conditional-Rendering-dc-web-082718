@@ -4,6 +4,12 @@ import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 
 class MainBox extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      detailsToDisplay: Profile
+    }
+  }
 
   render() {
 
@@ -13,12 +19,36 @@ class MainBox extends React.Component {
 
     */
 
-    const detailsToDisplay = <div>Hi, I'm a div!</div>
+    const handleClick = (e) => {
+
+      let content;
+
+      switch(e.target.name) {
+        case "Profile":
+          content = <Profile />;
+          break;
+        case "Cocktails":
+          content = <Cocktails />;
+          break;
+        case "Photos":
+          content = <Photos />;
+          break;
+        case "Pokemon":
+          content = <Pokemon />;
+          break
+      }
+
+      console.log(e.target.name)
+      this.setState({
+        detailsToDisplay: content
+      })
+
+    }
 
     return (
       <div>
-        <MenuBar />
-        {detailsToDisplay}
+        <MenuBar handleClick={handleClick}/>
+        {this.state.detailsToDisplay}
       </div>
     )
   }
